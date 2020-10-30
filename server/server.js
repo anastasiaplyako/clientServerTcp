@@ -14,7 +14,6 @@ server.on('connection', socket => {
     socket.id = id;
     socket.on('data', data => {
         let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data.toString());
-        console.log("userLogin = " + userLogin + "userMessage = " + userMessage)
         if (userMessage === 'exit'){
             messageApi.deleteClient(socket);
             socket.end();
@@ -25,7 +24,6 @@ server.on('connection', socket => {
                 messageApi.addClient(socket);
             }
             //client
-            console.log(data.toString());
             messageApi.sendMessage(data, socket)
         }
 

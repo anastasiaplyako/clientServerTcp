@@ -10,7 +10,7 @@ const encoding = config.ENCODING;
 let isLogin = false;
 let userName = '';
 
-const client = net.createConnection({host: host, port: port}, () => {
+const client = net.createConnection({host: host , port: port}, () => {
     console.log(`Connected to ${host}:${port}`)
 });
 
@@ -36,7 +36,6 @@ client.on('data', data => {
     let dateFormat = 'YYYY-DD-MM HH:mm:ss';
     let testDateUtc = moment.utc(+userTime);
     let localDate = testDateUtc.local();
-    let newDate = new Date(+userTime);
     console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
 });
 

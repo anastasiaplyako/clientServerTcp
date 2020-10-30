@@ -1,10 +1,5 @@
-let time = require("moment");
-const moment = require("moment");
 
 function createProtocol(userName, messageClient) {
-    var dateFormat = 'YYYY-DD-MM HH:mm:ss';
-    var testDateUtc = moment.utc(Date.now()).format(dateFormat);
-    console.log("testDateUtc = " + testDateUtc)
     let loginLength = userName.length;
     return `${Date.now()}[${loginLength}${userName}]${messageClient}`
 }
