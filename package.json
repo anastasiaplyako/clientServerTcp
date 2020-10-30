@@ -1,0 +1,29 @@
+{
+  "name": "lab1_chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.5.2",
+    "dantil": "github:dannynemer/dantil",
+    "express": "^4.17.1",
+    "install": "^0.13.0",
+    "moment": "^2.29.1",
+    "net": "^1.0.2",
+    "shortid": "^2.2.16",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.1",
+    "vue": "^2.6.12"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.8",
+    "node": "latest",
+    "readline-sync": "^1.4.10"
+  }
+}
