@@ -33,7 +33,7 @@ server.on('connection', socket => {
     socket.on('disconnect', function() {
        console.log('disconnect');
     });
-    socket.on('end', () => process.send(new Error(`${socket.name || socket.id} disconnected`)));
+    socket.on('end', () =>{});
     socket.on('error', () =>
         process.emitWarning(new Error(`${socket.name || socket.id} disconnected2`)))
 });
