@@ -14,16 +14,27 @@ const client = net.createConnection({host: host, port: port}, () => {
     console.log(`Connected to ${host}:${port}`)
 });
 
+
+function checkSpecialSymbols(userMsg) {
+    let userMsgArray = userMsg.split("");
+    return userMsgArray.indexOf('|') === -1
+}
+
 rl.onLine(line => {
-    if (!isLogin) {
-        isLogin = true;
-        userName = line;
+    if (!checkSpecialSymbols(line)) {
+        console.log("You cant use special symbols '|'")
     } else {
-        process.on('SIGINT', function () {
-            client.write(protocol.createProtocol(userName, 'exit'));
-        });
-        client.write(protocol.createProtocol(userName, line));
+        if (!isLogin) {
+            isLogin = true;
+            userName = line;
+        } else {
+            process.on('SIGINT', function () {
+                client.write(protocol.createProtocol(userName, 'exit'));
+            });
+            client.write(protocol.createProtocol(userName, line));
+        }
     }
+
 });
 
 
@@ -62,12 +73,15 @@ client.on('data', data => {
         console.log('You disconnected from server');
         process.exit(0);
     }
-    let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
-    let dateFormat = 'YYYY-DD-MM HH:mm:ss';
-    let testDateUtc = moment.utc(+userTime);
-    let localDate = testDateUtc.local();
-    let newDate = new Date(+userTime);
-    console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
+    if (data.toString()[0] !== '|') {
+        console.log(data);
+    } else {
+        let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
+        let dateFormat = 'YYYY-DD-MM HH:mm:ss';
+        let testDateUtc = moment.utc(+userTime);
+        let localDate = testDateUtc.local();
+        console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
+    }
 });
 
 client.on('error', () => {

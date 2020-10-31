@@ -1,13 +1,28 @@
 
 function createProtocol(userName, messageClient) {
-    let loginLength = userName.length;
-    return `${Date.now()}[${loginLength}${userName}]${messageClient}`
+    return `|${Date.now()}|${userName}|${messageClient}`
 }
 
 function decryptionProtocol(data) {
     let userData = data.split('');
     let res = ['', '', ''];
     let i = 0;
+    let j = 0;
+    if (userData[0] !== '|') {
+        return data;
+    } else {
+        i++;
+    }
+    while (i < userData.length) {
+        if (userData[i] === "|") {
+            i++;
+            j++;
+        }
+        res[j] +=  userData[i];
+        i++;
+    }
+
+   /* let i = 0;
     let j = 0;
     let lengthLoginClient = '';
     let isLogin = false;
@@ -35,9 +50,10 @@ function decryptionProtocol(data) {
         }
         res[j] += userData[i];
         i++;
-    }
+    }*/
     return res;
 }
+
 
 
 module.exports = {
