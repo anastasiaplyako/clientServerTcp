@@ -8,9 +8,7 @@ function decryptionProtocol(data) {
     let res = ['', '', ''];
     let i = 0;
     let j = 0;
-    if (userData[0] !== '|') {
-        return data;
-    } else {
+    if (userData[0] === '|') {
         i++;
     }
     while (i < userData.length) {

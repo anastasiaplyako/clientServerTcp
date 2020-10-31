@@ -13,6 +13,7 @@ module.exports = class MessageApi {
     };
 
     sendMessage = (msg, sender) => {
+
         this.clients.forEach(client => {
             //let [userTime, userLogin, userMessage] = _decryptionProtocol(data);
             if (client.id !== sender.id) client.write(msg)

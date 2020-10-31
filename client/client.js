@@ -68,30 +68,22 @@ var question = function(q) {
 */
 
 client.setEncoding(encoding);
-let inputBigMessage = [];
-
 client.on('data', data => {
     if (data.toString() === 'exit') {
         console.log('You disconnected from server');
         process.exit(0);
     }
-    if (data.toString()[data.length] !== '|') {
-        console.log("not massage");
-        inputBigMessage.push(data.toString());
+    console.log('data');
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NEW MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
+    if (data.toString()[0] !== '|') {
+        console.log(data);
     } else {
-        if (data.toString()[0] !== '|') {
-            console.log(data);
-            inputBigMessage.push(data);
-        } else {
-            let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
-            let dateFormat = 'YYYY-DD-MM HH:mm:ss';
-            let testDateUtc = moment.utc(+userTime);
-            let localDate = testDateUtc.local();
-            console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
-            console.log()
-        }
+        let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
+        let dateFormat = 'YYYY-DD-MM HH:mm:ss';
+        let testDateUtc = moment.utc(+userTime);
+        let localDate = testDateUtc.local();
+        console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
     }
-
 });
 
 client.on('error', () => {

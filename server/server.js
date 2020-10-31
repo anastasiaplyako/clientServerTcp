@@ -13,6 +13,7 @@ server.on('connection', socket => {
     const id = shortId.generate();
     socket.id = id;
     socket.on('data', data => {
+        console.log("=====================================================DATA SERVER ==================================")
         let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data.toString());
         if (userMessage === 'exit'){
             messageApi.deleteClient(socket);
