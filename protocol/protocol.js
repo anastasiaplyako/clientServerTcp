@@ -1,6 +1,6 @@
 
 function createProtocol(userName, messageClient) {
-    return `|${Date.now()}|${userName}|${messageClient}`
+    return `|${Date.now()}|${userName}|${messageClient}|`
 }
 
 function decryptionProtocol(data) {
