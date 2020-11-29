@@ -3,7 +3,7 @@ let rl = require('../readlineAsync');
 let config = require('../config.js');
 const protocol = require('../protocol/protocol.js')
 const moment = require("moment");
-const readline = require('readline');
+
 const port = config.PORT;
 const host = config.HOST;
 const encoding = config.ENCODING;
@@ -69,6 +69,10 @@ var question = function(q) {
 let userMessageArr = [];
 let checkWork = 0;
 let receivedLength = 0;
+let userLength,
+    userTime,
+    userLogin,
+    userMessage;
 
 client.setEncoding(encoding);
 client.on('data', data => {
@@ -78,23 +82,24 @@ client.on('data', data => {
         process.exit(0);
     }
 
-    let [userLength, userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
 
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NEW MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
     if (data.toString()[0] !== '|') {
-        console.log(data);
         receivedLength += data.length;
         checkWork++;
         userMessageArr.push(data);
         console.log('checkWork = ', checkWork);
         console.log("length from user messsage = ", userLength, "length received =", receivedLength);
-        console.log(userMessageArr, '\n');
-        if (userLength - receivedLength === 3) {
-
+        //console.log(userMessageArr, '\n');
+        if (receivedLength - userLength === 5) {
+            console.log(userMessageArr.join(''))
+            userMessageArr = [];
         }
     } else {
+        [userLength, userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
         receivedLength = data.length;
         checkWork = 0;
+        userMessageArr = [];
         console.log("length принято= ", data.length, "length =", userLength);
         let dateFormat = 'YYYY-DD-MM HH:mm:ss';
         let testDateUtc = moment.utc(+userTime);
