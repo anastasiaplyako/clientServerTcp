@@ -14,6 +14,18 @@ server.on('connection', socket => {
     socket.id = id;
     socket.on('data', data => {
         console.log("=====================================================DATA SERVER ==================================")
+
+        let input = [];
+        if (data.toString()[data.length  - 1] !== '|') {
+            console.log()
+            input.push(data);
+            console.log("ITS DATA NOT THE END PACKET \n")
+        } else {
+            input.push(data);
+            console.log("ITS NORM DATA \n")
+        }
+        console.log("ITS DATA \n")
+
         let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data.toString());
         if (userMessage === 'exit'){
             messageApi.deleteClient(socket);

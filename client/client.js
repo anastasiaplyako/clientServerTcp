@@ -78,7 +78,8 @@ client.on('data', data => {
     if (data.toString()[0] !== '|') {
         console.log(data);
     } else {
-        let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
+        let [userLength, userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
+        console.log('length = ' + userLength + '\n');
         let dateFormat = 'YYYY-DD-MM HH:mm:ss';
         let testDateUtc = moment.utc(+userTime);
         let localDate = testDateUtc.local();

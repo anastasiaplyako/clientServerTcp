@@ -1,11 +1,12 @@
 
 function createProtocol(userName, messageClient) {
-    return `|${Date.now()}|${userName}|${messageClient}|`
+    let message = `|${Date.now()}|${userName}|${messageClient}|`
+    return `|${message.length}|${message}`
 }
 
 function decryptionProtocol(data) {
     let userData = data.split('');
-    let res = ['', '', ''];
+    let res = ['', '', '', ''];
     let i = 0;
     let j = 0;
     if (userData[0] === '|') {
