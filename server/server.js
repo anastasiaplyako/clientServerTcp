@@ -26,7 +26,7 @@ server.on('connection', socket => {
         }
         console.log("ITS DATA \n")
 
-        let [userTime, userLogin, userMessage] = protocol.decryptionProtocol(data.toString());
+        let [userLength, userTime, userLogin, userMessage] = protocol.decryptionProtocol(data.toString());
         if (userMessage === 'exit'){
             messageApi.deleteClient(socket);
             socket.end();

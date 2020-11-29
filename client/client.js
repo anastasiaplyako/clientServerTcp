@@ -34,7 +34,6 @@ rl.onLine(line => {
             client.write(protocol.createProtocol(userName, line));
         }
     }
-
 });
 
 
