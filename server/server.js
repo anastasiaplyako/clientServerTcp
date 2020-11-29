@@ -17,7 +17,6 @@ server.on('connection', socket => {
 
         let input = [];
         if (data.toString()[data.length  - 1] !== '|') {
-            console.log()
             input.push(data);
             console.log("ITS DATA NOT THE END PACKET \n")
         } else {

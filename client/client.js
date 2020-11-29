@@ -72,7 +72,8 @@ client.on('data', data => {
         console.log('You disconnected from server');
         process.exit(0);
     }
-    console.log('data');
+    console.log('data = ', data);
+
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NEW MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
     if (data.toString()[0] !== '|') {
         console.log(data);

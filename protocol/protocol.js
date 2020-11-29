@@ -1,6 +1,6 @@
 
 function createProtocol(userName, messageClient) {
-    let message = `|${Date.now()}|${userName}|${messageClient}|`
+    let message = `|${Date.now()}|${userName}|${messageClient}`
     return `|${message.length}|${message}`
 }
 
