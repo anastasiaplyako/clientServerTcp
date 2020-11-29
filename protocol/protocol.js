@@ -12,7 +12,7 @@ function decryptionProtocol(data) {
     if (userData[0] === '|') {
         i++;
     }
-    while (i < userData.length) {
+    while (i < userData.length - 1) {
         if (userData[i] === "|") {
             i++;
             j++;

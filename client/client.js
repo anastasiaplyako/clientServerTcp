@@ -66,24 +66,46 @@ var question = function(q) {
 })();
 */
 
+let userMessageArr = [];
+let checkWork = 0;
+let receivedLength = 0;
+
 client.setEncoding(encoding);
 client.on('data', data => {
+
     if (data.toString() === 'exit') {
         console.log('You disconnected from server');
         process.exit(0);
     }
-    console.log('data = ', data);
+
+    let [userLength, userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
 
     console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!NEW MESSAGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n')
     if (data.toString()[0] !== '|') {
         console.log(data);
+        receivedLength += data.length;
+        checkWork++;
+        userMessageArr.push(data);
+        console.log('checkWork = ', checkWork);
+        console.log("length from user messsage = ", userLength, "length received =", receivedLength);
+        console.log(userMessageArr, '\n');
+        if (userLength - receivedLength === 3) {
+
+        }
     } else {
-        let [userLength, userTime, userLogin, userMessage] = protocol.decryptionProtocol(data);
-        console.log('length = ' + userLength + '\n');
+        receivedLength = data.length;
+        checkWork = 0;
+        console.log("length принято= ", data.length, "length =", userLength);
         let dateFormat = 'YYYY-DD-MM HH:mm:ss';
         let testDateUtc = moment.utc(+userTime);
         let localDate = testDateUtc.local();
-        console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
+        checkWork++;
+        console.log('checkWork = ', checkWork);
+        if (receivedLength - userLength === 3) {
+            console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
+        } else {
+            userMessageArr.push(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
+        }
     }
 });
 
