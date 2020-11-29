@@ -76,7 +76,6 @@ let userLength,
 
 client.setEncoding(encoding);
 client.on('data', data => {
-
     if (data.toString() === 'exit') {
         console.log('You disconnected from server');
         process.exit(0);
@@ -106,7 +105,7 @@ client.on('data', data => {
         let localDate = testDateUtc.local();
         checkWork++;
         console.log('checkWork = ', checkWork);
-        if (receivedLength - userLength === 3) {
+        if (receivedLength - userLength === 3 || receivedLength - userLength <= 6) {
             console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
         } else {
             userMessageArr.push(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
