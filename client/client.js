@@ -90,7 +90,7 @@ client.on('data', data => {
         console.log('checkWork = ', checkWork);
         console.log("length from user messsage = ", userLength, "length received =", receivedLength);
         //console.log(userMessageArr, '\n');
-        if (receivedLength - userLength === 5) {
+        if (receivedLength - userLength <= 6 && receivedLength - userLength >= 0) {
             console.log(userMessageArr.join(''))
             userMessageArr = [];
         }
@@ -105,7 +105,7 @@ client.on('data', data => {
         let localDate = testDateUtc.local();
         checkWork++;
         console.log('checkWork = ', checkWork);
-        if (receivedLength - userLength === 3 || receivedLength - userLength <= 6) {
+        if (receivedLength - userLength === 3) {
             console.log(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
         } else {
             userMessageArr.push(`${localDate.format(dateFormat)} ${userLogin} : ${userMessage}`);
